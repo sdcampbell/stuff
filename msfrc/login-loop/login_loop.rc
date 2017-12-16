@@ -1,0 +1,21 @@
+<ruby>
+# Create pass_input.txt as the list of passwords that should be looped through.
+# Each will be read as next_pass.
+# next_pass will be written to pass_file.txt, which should be the Metasploit pass_file value.
+# The sleep command is in seconds, and won't run during the first run of the loop.
+
+	begin
+
+	first_run = true
+	File.foreach("/root/Documents/passwords.txt", "\n") do |next_pass|
+		if first_run == false
+			run_single("sleep 525")
+		end
+		first_run = false
+		run_single("date")
+		run_single("echo #{next_pass} > /opt/login-loop/pass_file.txt")
+		run_single("run")           
+        end
+
+	end
+</ruby>
